@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#" @click="$emit('getBoardList',1)" >Navbar</a>
+      <a class="navbar-brand" href="#" @click="resetMain" >Navbar</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -50,9 +50,19 @@ export default {
       keyword : this.$store.state.keyword || '', 
     }
   },
+  watch:{
+    // searchType(data){
+    //   this.$store.commit('setSearchType', data);
+    // },
+    // keyword(data){
+    //   this.$store.commit('setKeyword', data);
+    // }
+  },
   methods:{
-    commitSearchType(searchType){
-      this.$store.commit('setSearchType', searchType);
+    resetMain(){
+      this.$store.commit('setKeyword', this.keyword = '');
+      this.$store.commit('setSearchType', this.searchType = 'T');
+      this.$emit('getBoardList',1)
     },
     handleEnterKey(event){
       if (event.key === 'Enter') {
