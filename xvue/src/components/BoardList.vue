@@ -51,7 +51,6 @@ export default {
   },
   created (){
     let currentPage = this.$route.params.page || 1;
-    console.log('this.$route.params.page',this.$route.params.page);
     this.getBoardList(currentPage)
   },
   methods:{

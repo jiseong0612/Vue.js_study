@@ -20,7 +20,6 @@
       <button @click="deleBoard" class="btn btn-danger m-1">삭제</button>
       <button @click="getBoardList" class="btn btn-primary m-1">목록</button>
     </div>
-    {{board}}
   </div>
 </template>
 
