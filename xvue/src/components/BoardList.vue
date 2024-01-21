@@ -12,6 +12,9 @@
         </tr>
       </thead>
       <tbody>
+        <tr v-if="boardList.length <= 0">
+          <td colspan="5" class="bg-warning-subtle py-5">작성된 글이 없습니다.</td>
+        </tr>
         <tr v-for="board in boardList" :key="board.id" @click="goToBoardDetail(board.id)">
           <th scope="row">{{board.id}}</th>
           <td>{{board.title}}</td>
@@ -33,7 +36,6 @@
     </nav>
 
     <div class="d-flex justify-content-center mb-5">
-      <!-- <button type="button" class="btn btn-primary" @click="console.log(boardList)">글작성</button> -->
       <button type="button" class="btn btn-primary" @click="$router.push('/board')">글작성</button>
     </div>
   </div>
@@ -55,7 +57,12 @@ export default {
   },
   methods:{
     getBoardList(page) {
-      axios.get(`/api/board/page/${page}`)
+      const searchParams ={
+        keyword : this.$store.state.keyword,
+        searchType : this.$store.state.searchType,
+      };
+
+      axios.get(`/api/board/page/${page}`, {params:searchParams})
         .then(result=>{
           this.pageMap = result.data.pageMap;
           this.boardList = result.data.boardList

@@ -1,6 +1,7 @@
 <template>
   <div class="text-start mx-5 mt-3">
     <div class="mb-3">
+      <input disabled type="text" :value="`#  No. ${ $route.params.id}`" class="my-3 form-control none"  aria-describedby="emailHelp">
       <label for="exampleInputEmail1" class="form-label">작성자</label>
       <input type="text" v-model.trim="writer" @keydown="$refs.warnWriter.style.display = 'none'" ref="writer" class="form-control none" placeholder="작성자를 입력해 주세요."  id="exampleInputEmail1" aria-describedby="emailHelp">
       <div ref="warnWriter" class="alert alert-danger py-1 mt-2" style="display : none"> 작성자를 입력해 주세요!</div>

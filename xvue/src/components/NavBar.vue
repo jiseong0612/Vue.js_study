@@ -2,7 +2,6 @@
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand" href="#" @click="$emit('getBoardList',1)" >Navbar</a>
-      <!-- <router-link class="navbar-brand" to="/">Board</router-link> -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -29,15 +28,15 @@
             <a class="nav-link disabled" aria-disabled="true">Disabled</a>
           </li> -->
         </ul>
-        <form class="d-flex" role="search">
+        <div class="d-flex" role="search">
           <select class="form-select" v-model="searchType" @change="$store.commit('setSearchType', $event.target.value)" aria-label="Default select example">
             <option value="T">제목</option>
             <option value="W">작성자</option>
             <option value="C">내용</option>
           </select>
-          <input class="form-control me-2" ref="keyword" v-model="keyword" @keydown.enter="$store.commit('setKeyword', $event.target.value.trim())" type="search" placeholder="Search" aria-label="Search">
+          <input class="form-control me-2" ref="keyword" v-model="keyword" @keydown="handleEnterKey" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" @click="getBoardSearchList" type="button">Search</button>
-        </form>
+        </div>
       </div>
     </div>
   </nav>
@@ -47,24 +46,28 @@
 export default {
   data(){
     return{
-      searchType :'T', 
-      keyword : '',
+      searchType :this.$store.state.searchType || 'T', 
+      keyword : this.$store.state.keyword || '', 
     }
   },
   methods:{
     commitSearchType(searchType){
       this.$store.commit('setSearchType', searchType);
     },
-    getBoardSearchList(){
-      if(this.keyword.trim().length=== 0){
-        console.log(this.$store.state.searchType)
-        alert('검색어를 입력해 주세요');
-        this.$refs.keyword.focus();
-        return false;
+    handleEnterKey(event){
+      if (event.key === 'Enter') {
+        this.getBoardSearchList();
       }
+    },
+    getBoardSearchList(){
+      // if(this.keyword.trim().length=== 0){  //유효성 시작
+      //   alert('검색어를 입력해 주세요');
+      //   this.$refs.keyword.focus();
+      //   return false;                       
+      // } //유효성 끝
 
+      this.$store.commit('setKeyword', this.keyword.trim());
       this.$store.commit('setSearchType', this.searchType);
-      this.$store.commit('setKeyword', this.keyword);
       this.$emit('getBoardList', 1) //검색시 페이지 1초기화
     }
   }

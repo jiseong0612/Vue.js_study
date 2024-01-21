@@ -35,7 +35,6 @@ export default {
   methods:{
     formValid(){
       let flag = true;
-      console.log(this.$refs)
       if(this.title.length === 0 ){
         this.$refs.warnTitle.style.display = 'block'
         this.$refs.title.focus();
@@ -66,8 +65,8 @@ export default {
         this.getBoardList(1);
       });
     },
-    getBoardList(page){
-      let movePage = page || this.$store.state.page
+    getBoardList(){
+      let movePage = this.$store.state.page;
       this.$router.push(`/board/page/${movePage}`)
     },
   }
