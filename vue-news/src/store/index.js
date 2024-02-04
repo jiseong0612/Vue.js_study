@@ -9,6 +9,7 @@ const store = createStore({
       ask : [],
       jobs : [],
       user : {},
+      item : {},
     }
   },
   mutations,

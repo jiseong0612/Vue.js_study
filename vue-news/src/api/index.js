@@ -15,8 +15,12 @@ const api = {
     return axios.get(`${config.baseUrl}jobs/1.json`);
   },
   fetchUserName: (userName) => {
-    console.log(userName);
+    console.log('userName', userName);
     return axios.get(`${config.baseUrl}user/${userName}.json`);
+  },
+  fetchItem: (itemNo) => {
+    console.log('itemNo', itemNo);
+    return axios.get(`${config.baseUrl}item/${itemNo}.json`);
   },
 }
 

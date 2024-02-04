@@ -44,6 +44,17 @@ export default{
         console.log(error);
       });
     },
+    FETCH_ITEM({commit}, itemNo){
+      console.log('asdfadsf', itemNo)
+      api.fetchItem(itemNo)
+      .then(({data}) =>{
+        console.log('FETCH_ITEM', 'created');
+        commit('SET_ITEM', data);
+      })
+      .catch(error =>{
+        console.log(error);
+      });
+    },
     // 코딩애플 이미지 
     // getData(context){
     //   axios.get(`https://codingapple1.github.io/vue/more0.json`)
